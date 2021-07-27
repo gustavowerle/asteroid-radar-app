@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -35,6 +36,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textAsteroidName" />
 
+        <!-- ContentDescription is filled programmatically at BindingAdapters:10 or BindingAdapters:14
+          depending on the potentiallyHazardous variable -->
         <ImageView
             android:id="@+id/imageIsPotentiallyHazardous"
             android:layout_width="wrap_content"
@@ -42,6 +45,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/textCloseApproachDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textAsteroidName"
-            app:statusIcon="@{asteroid.potentiallyHazardous}" />
+            app:statusIcon="@{asteroid.potentiallyHazardous}"
+            tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
