@@ -61,7 +61,7 @@ class MainFragment : Fragment() {
     private fun setPictureOfDayObserver() {
         viewModel.pictureOfDay.observe(viewLifecycleOwner, Observer {
             if (Constants.MEDIA_TYPE_IMAGE == it.mediaType) {
-                binding.activityMainImageOfTheDay.contentDescription = it.title
+                binding.fragmentDetailAsteroidImage.contentDescription = it.title
                 context?.apply {
                     Glide.with(this)
                         .load(it.url)
@@ -70,7 +70,7 @@ class MainFragment : Fragment() {
                                 .placeholder(R.drawable.loading_animation)
                                 .error(R.drawable.ic_broken_image)
                         )
-                        .into(binding.activityMainImageOfTheDay)
+                        .into(binding.fragmentDetailAsteroidImage)
 
                 }
             }
