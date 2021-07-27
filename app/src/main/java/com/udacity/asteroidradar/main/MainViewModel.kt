@@ -36,7 +36,7 @@ class MainViewModel(val repository: AsteroidsRepository) : ViewModel() {
 
     private fun getAsteroids() {
         viewModelScope.launch {
-            repository.getAsteroids(Date())
+            repository.getAsteroids()
         }
     }
 
@@ -63,16 +63,19 @@ class MainViewModel(val repository: AsteroidsRepository) : ViewModel() {
     fun filterAsteroids(filter: String) {
         viewModelScope.launch {
             try {
-                val calendar = Calendar.getInstance()
+                val initialDate = Calendar.getInstance()
+                val finalDate = Calendar.getInstance()
                 when (filter) {
                     WEEK_ASTEROIDS -> {
-                        calendar.set(Calendar.DAY_OF_WEEK, 1)
+                        initialDate.set(Calendar.DAY_OF_WEEK, 1)
+                        finalDate.set(Calendar.DAY_OF_WEEK, 7)
                     }
                     SAVED_ASTEROIDS -> {
-                        calendar.set(Calendar.YEAR, 0)
+                        initialDate.set(Calendar.YEAR, 0)
+                        finalDate.set(Calendar.YEAR, 9999)
                     }
                 }
-                repository.getAsteroids(calendar.time)
+                repository.getAsteroids(initialDate.time, finalDate.time)
             } catch (e: Exception) {
                 Log.e("filterAsteroids", e.message.toString())
             }

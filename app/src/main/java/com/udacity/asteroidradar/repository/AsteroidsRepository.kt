@@ -29,10 +29,10 @@ class AsteroidsRepository(val database: AppDatabase) {
 
     suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
-            val sevenDaysAgo = Date(Date().time - 604800000L) // 7 * 24 * 60 * 60 * 1000
+            val sevenDaysFromNow = Date(Date().time + 604800000L)
             val response = Network.asteroids.getAsteroids(
-                dateFormat(sevenDaysAgo),
-                dateFormat(Date())
+                dateFormat(Date()),
+                dateFormat(sevenDaysFromNow)
             ).execute()
             if (response.body() == null)
                 return@withContext
@@ -41,6 +41,7 @@ class AsteroidsRepository(val database: AppDatabase) {
                     it.toAsteroidEntity()
                 }
             database.asteroidDao.insertAll(asteroids)
+            getAsteroids()
         }
     }
 
@@ -53,9 +54,14 @@ class AsteroidsRepository(val database: AppDatabase) {
         }
     }
 
-    suspend fun getAsteroids(date: Date) {
+    suspend fun getAsteroids(initialDate: Date = Date(), finalDate: Date = Date()) {
         withContext(Dispatchers.IO) {
-            asteroids.postValue(database.asteroidDao.getAllAsteroid(dateFormat(date)))
+            asteroids.postValue(
+                database.asteroidDao.getAllAsteroid(
+                    dateFormat(initialDate),
+                    dateFormat(finalDate)
+                )
+            )
         }
     }
 
