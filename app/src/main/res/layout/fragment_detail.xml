@@ -15,6 +15,8 @@
         android:layout_height="match_parent"
         android:background="@color/app_background">
 
+        <!-- ContentDescription is filled programmatically at BindingAdapters:23 or BindingAdapters:27
+          depending on the potentiallyHazardous variable -->
         <ImageView
             android:id="@+id/fragmentDetailAsteroidImage"
             android:layout_width="match_parent"
@@ -24,6 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
             tools:srcCompat="@drawable/asteroid_safe" />
 
         <ScrollView
