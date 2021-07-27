@@ -1,6 +1,5 @@
 package com.udacity.asteroidradar.main
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.repository.AsteroidsRepository
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.*
 
 class MainViewModel(val repository: AsteroidsRepository) : ViewModel() {
@@ -45,7 +45,7 @@ class MainViewModel(val repository: AsteroidsRepository) : ViewModel() {
             try {
                 repository.getPictureOfDay()
             } catch (e: Exception) {
-                Log.e("getPictureOfDay", e.message.toString())
+                Timber.e(e.message.toString())
             }
         }
     }
@@ -55,7 +55,7 @@ class MainViewModel(val repository: AsteroidsRepository) : ViewModel() {
             try {
                 repository.refreshAsteroids()
             } catch (e: Exception) {
-                Log.e("refreshAsteroids", e.message.toString())
+                Timber.e(e.message.toString())
             }
         }
     }
@@ -77,7 +77,7 @@ class MainViewModel(val repository: AsteroidsRepository) : ViewModel() {
                 }
                 repository.getAsteroids(initialDate.time, finalDate.time)
             } catch (e: Exception) {
-                Log.e("filterAsteroids", e.message.toString())
+                Timber.e(e.message.toString())
             }
         }
     }
